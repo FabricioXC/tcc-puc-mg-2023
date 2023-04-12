@@ -3,7 +3,7 @@ const Privacy = () => {
     <>
       <div
         style={{
-          padding: "auto",
+          padding: "5%",
           maxWidth: "900px",
           display: "flex",
           flexDirection: "column",
