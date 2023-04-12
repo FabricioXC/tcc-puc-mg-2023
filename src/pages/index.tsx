@@ -67,13 +67,20 @@ export default function Home() {
               </p>
               <br />
 
-              <img
+              <Image
+                src={user.photoURL as string}
+                alt=""
+                className={styles.avatar}
+                width={50}
+                height={50}
+              />
+              {/* <img
                 src={user.photoURL}
                 alt=""
                 className={styles.avatar}
                 width={"50px"}
                 height={"50px"}
-              />
+              /> */}
 
               {/* <button onClick={() => auth.signOut()}>Sign Out</button> */}
             </>
