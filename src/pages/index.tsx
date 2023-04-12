@@ -9,6 +9,7 @@ import { initFirebase } from "@/firebase/firebaseApp";
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signIn } from "@/services/auth";
+import Router from "next/router";
 export default function Home() {
   initFirebase();
   // console.log(app);
@@ -54,6 +55,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+
       <main className={styles.main}>
         <h1 className={styles.title}>
           Authentication in Next.js app using Next-Auth
