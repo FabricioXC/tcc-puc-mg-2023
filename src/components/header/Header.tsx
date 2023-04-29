@@ -1,16 +1,17 @@
 // import { useSession, signIn, signOut } from "next-auth/react";
-import { signIn } from "@/services/auth";
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { Auth } from "@/services/auth";
+import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 export default function Header() {
   // const { data: session } = useSession();
 
   const auth = getAuth();
+  auth.useDeviceLanguage();
   const [user] = useAuthState(auth);
-  const provider = new GoogleAuthProvider();
+  // const provider = new GoogleAuthProvider();
   const handleSignin = (e: any) => {
     e.preventDefault();
-    signIn(auth, provider);
+    Auth.googleSignIn(auth);
   };
 
   const handleSignout = (e: any) => {
