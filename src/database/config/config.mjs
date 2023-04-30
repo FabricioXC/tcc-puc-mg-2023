@@ -6,6 +6,7 @@ export default {
     host: process.env.DB_HOSTNAME,
     port: process.env.DB_PORT,
     dialect: "mysql",
+    dialectModule: require("mysql2"),
   },
   test: {
     storage: ":memory",
@@ -28,5 +29,6 @@ export default {
     port: process.env.DB_PORT,
     logging: false,
     dialect: "mysql",
+    dialectModule: require("mysql2"),
   },
 };
