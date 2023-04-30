@@ -1,5 +1,5 @@
 import User from "../../database/models/user";
-import logger from "../../services/logger";
+// import logger from "../../services/logger";
 
 export default async function handler(req: any, res: any) {
   try {
@@ -15,7 +15,7 @@ export default async function handler(req: any, res: any) {
     });
     res.status(200).json({ users });
   } catch (e: any) {
-    logger.error(e.stack);
+    // logger.error(e.stack);
     res.status(400).json({
       error_code: "get_users",
       message: e.message,
