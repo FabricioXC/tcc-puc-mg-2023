@@ -13,8 +13,8 @@ const getLogger = (fileName = "application") => {
   const consoleTransport = new transports.Console({
     level: process.env.LOG_LEVEL,
     handleExceptions: false,
-    json: false,
-    colorize: true,
+    // json: false,
+    // colorize: true,
     format: format.printf((i) => `${i.message}`),
   });
 
