@@ -2,6 +2,7 @@ import User from "../../database/models/user";
 // import logger from "../../services/logger";
 
 export default async function handler(req: any, res: any) {
+  console.log("REQ: ", req);
   try {
     // const task = await Task.findOne();
     // if (task) {
@@ -21,4 +22,5 @@ export default async function handler(req: any, res: any) {
       message: e.message,
     });
   }
+  console.log("RES: ", res);
 }

@@ -1,5 +1,6 @@
 import { Users } from "@/models/database";
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 
 export default function Users() {
@@ -24,6 +25,18 @@ export default function Users() {
       });
   }, []);
 
+  //   useEffect(() => {
+
+  //   const test = async () => {
+  //     const users = await User.findAll({
+  //         attributes: ["first_name", "last_name", "email"],
+  //         //   include: "tasks",
+  //         limit: 100,
+  //       });
+  //       import User from "../../database/models/user";
+  //   }
+  //   }, []);
+
   return (
     <div className="p-6">
       <div style={{ background: "#fff" }}>
@@ -38,3 +51,21 @@ export default function Users() {
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  // const apiClient = getApiClient(ctx);
+  // const { ["nextauth-token"]: token } = parseCookies(ctx);
+
+  // if (!token) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //   };
+  // }
+
+  return {
+    props: { data: [] },
+  };
+};
