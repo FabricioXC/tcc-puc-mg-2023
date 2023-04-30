@@ -20,6 +20,7 @@ export default function Users() {
           message = error.message;
         }
         setErrorMessage(message);
+        console.log("Users Error: ", error);
       });
   }, []);
 
