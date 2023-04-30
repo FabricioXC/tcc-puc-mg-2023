@@ -1,9 +1,11 @@
+import { Users } from "@/models/database";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Users() {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<Users[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
+  console.log("Users: ", users);
   useEffect(() => {
     axios
       .get("/api/users")
