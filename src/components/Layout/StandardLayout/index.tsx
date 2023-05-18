@@ -1,6 +1,10 @@
 import NavbarComponent from "@/components/Navbar/Navbar";
 import { MainContainer } from "@/styles/containers";
-export default function StrandardLayout({ children }) {
+
+interface StandardLayoutProps {
+  children: React.ReactNode;
+}
+const StandardLayout: React.FC<StandardLayoutProps> = ({ children }) => {
   const user = {
     first_name: "John",
     last_name: "Doe",
@@ -14,4 +18,6 @@ export default function StrandardLayout({ children }) {
       <MainContainer>{children}</MainContainer>
     </>
   );
-}
+};
+
+export default StandardLayout;

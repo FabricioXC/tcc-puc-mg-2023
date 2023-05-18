@@ -1,4 +1,4 @@
-import StrandardLayout from "@/components/Layout/StandardLayout";
+import StandardLayout from "@/components/Layout/StandardLayout";
 import NavbarComponent from "@/components/Navbar/Navbar";
 import { Users } from "@/models/database/database";
 import axios from "axios";
@@ -63,7 +63,7 @@ const DashboardComponent: React.FC<DashboardComponentProps> = ({ users }) => {
 };
 
 // DashboardComponent.getLayout = function getLayout(page: any) {
-//   return <StrandardLayout>{page}</StrandardLayout>;
+//   return <StandardLayout>{page}</StandardLayout>;
 // };
 export default DashboardComponent;
 export const getServerSideProps: GetServerSideProps = async () => {

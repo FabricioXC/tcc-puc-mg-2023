@@ -1,5 +1,5 @@
 import DashboardComponent from "@/components/Dashboard";
-import StrandardLayout from "@/components/Layout/StandardLayout";
+import StandardLayout from "@/components/Layout/StandardLayout";
 import NavbarComponent from "@/components/Navbar/Navbar";
 import { Users } from "@/models/database/database";
 import axios from "axios";
@@ -30,15 +30,15 @@ export default function Users() {
 
   return (
     <>
-      <StrandardLayout>
+      <StandardLayout>
         <DashboardComponent users={users} />
-      </StrandardLayout>
+      </StandardLayout>
     </>
   );
 }
 
 // Dashboard.getLayout = function getLayout(page: any) {
-//   return <StrandardLayout>{page}</StrandardLayout>;
+//   return <StandardLayout>{page}</StandardLayout>;
 // };
 
 export const getServerSideProps: GetServerSideProps = async () => {

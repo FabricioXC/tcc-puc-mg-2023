@@ -22,6 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
     if (router.pathname !== "/" && !user && !loading) {
       router.push("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname, user]);
 
   return (

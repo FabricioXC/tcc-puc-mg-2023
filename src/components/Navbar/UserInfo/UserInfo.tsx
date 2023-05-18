@@ -1,7 +1,7 @@
 import useWindowDimensions from "@/helper/get-dimensions";
 import { NavbarFactory } from "@/models/navbar/factory";
 import { NavbarMenuOptions } from "@/models/navbar/navbarData";
-import { Profile, UserData } from "@/models/pages/user/user-data";
+import { UserData } from "@/models/pages/user/user-data";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";

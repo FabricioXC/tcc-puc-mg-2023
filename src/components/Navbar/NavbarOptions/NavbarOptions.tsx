@@ -1,12 +1,12 @@
 import { NavbarFactory } from "@/models/navbar/factory";
 import { NavbarMenuOptions } from "@/models/navbar/navbarData";
-import { Profile } from "@/models/pages/user/user-data";
+import { ProfileData } from "@/models/pages/user/user-data";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 interface NavbarOptionsProps {
-  profile: Profile;
+  profile: ProfileData;
 }
 
 const NavbarOptions: React.FC<NavbarOptionsProps> = ({ profile }) => {

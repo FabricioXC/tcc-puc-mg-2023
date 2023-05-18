@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import NavbarOptions from "./NavbarOptions/NavbarOptions";
-import { UserData } from "@/models/pages/user/user-data";
+import { ProfileData, UserData } from "@/models/pages/user/user-data";
 import UserInfo from "./UserInfo/UserInfo";
 import useWindowDimensions from "@/helper/get-dimensions";
 import { navbarChangeBreakpoint } from "@/helper/functions";
@@ -62,7 +62,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
         {/* </Container> */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavbarOptions profile={"master"} />
+            <NavbarOptions profile={"master" as unknown as ProfileData} />
 
             {/* <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link> */}
