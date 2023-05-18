@@ -6,7 +6,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 
-export default function Dashboard() {
+export default function Users() {
   const [users, setUsers] = useState<Users[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   console.log("Users: ", users);

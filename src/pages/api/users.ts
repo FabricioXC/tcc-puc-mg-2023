@@ -22,5 +22,5 @@ export default async function handler(req: any, res: any) {
       message: e.message,
     });
   }
-  console.log("RES: ", res);
+  // console.log("RES: ", res);
 }

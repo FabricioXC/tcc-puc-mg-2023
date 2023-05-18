@@ -23,7 +23,9 @@
     "**/*.ts",
     "**/*.tsx",
     "src/pages/_document.js",
-    "src/pages/privacy.tsxivacy.js"
+    "src/pages/privacy.tsxivacy.js",
+    "src/database/models/index.js",
+    "src/database/models/task.js"
   ],
   "exclude": ["node_modules"]
 }

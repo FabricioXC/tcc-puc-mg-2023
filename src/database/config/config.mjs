@@ -1,3 +1,5 @@
+import mysql2 from "mysql2";
+
 export default {
   development: {
     username: process.env.DB_USERNAME,
@@ -6,7 +8,8 @@ export default {
     host: process.env.DB_HOSTNAME,
     port: process.env.DB_PORT,
     dialect: "mysql",
-    dialectModule: require("mysql2"),
+    dialectModule: mysql2,
+    // dialectModule: require("mysql2"),
   },
   test: {
     storage: ":memory",
@@ -29,6 +32,7 @@ export default {
     port: process.env.DB_PORT,
     logging: false,
     dialect: "mysql",
-    dialectModule: require("mysql2"),
+    dialectModule: mysql2,
+    // dialectModule: require("mysql2"),
   },
 };

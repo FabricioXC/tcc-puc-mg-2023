@@ -14,7 +14,7 @@ import { initFirebase } from "@/firebase/firebaseApp";
 import { Auth } from "@/services/auth";
 
 function Home() {
-  initFirebase();
+  // initFirebase();
   const { height } = useWindowDimensions();
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
@@ -36,7 +36,7 @@ function Home() {
     e.preventDefault();
     auth.signOut();
   };
-  console.log("User: ", user);
+  console.log("Useeeeeer: ", user);
   console.log("Loafing: ", loading);
   // console.log("height: ", height);
   return (
