@@ -9,6 +9,7 @@ const initUser = (sequelize, Types) => {
       first_name: Types.STRING,
       last_name: Types.STRING,
       email: Types.STRING,
+      profile: Types.STRING,
     },
     {
       sequelize,
