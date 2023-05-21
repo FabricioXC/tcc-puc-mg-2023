@@ -282,7 +282,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
       if (editData) {
         if (editMode) {
           setEditMode(false);
-          formik.setValues(editData);
+          formik.setValues(editData as any);
         } else {
           setEditData(null);
         }
