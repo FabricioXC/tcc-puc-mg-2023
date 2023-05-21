@@ -1,28 +1,24 @@
-import { Profile } from "@/database/models";
-import User from "../../database/models/user";
+import { Department, Profile } from "@/database/models";
+
 import { apiGetData, apiSendData } from "@/helper/api";
 import { makeInfoGender } from "@/components/Forms/functions";
 
 export default async function handler(req: any, res: any) {
-  const info = makeInfoGender("users");
+  const info = makeInfoGender("departments");
 
   switch (req.method) {
     case "GET":
       try {
-        const users = await User.findAll({
-          include: [
-            {
-              model: Profile,
-            },
-          ],
+        const departments = await Department.findAll({
+          attributes: ["id", "department"],
         });
 
-        const sendUsers = apiGetData(users, "users");
-
-        res.status(200).json({ users: sendUsers });
+        // const sendDepartments = apiGetData(departments, "departments");
+        console.log("DEPARTMENTS: ", departments);
+        res.status(200).json({ departments: departments });
       } catch (e: any) {
         res.status(400).json({
-          error_code: "get_users",
+          error_code: "get_departments",
           message: e.message,
         });
       }
@@ -30,21 +26,22 @@ export default async function handler(req: any, res: any) {
     case "POST":
       console.log("REQU POST: ", req.body);
       try {
-        const checkData = await User.findAll({
+        const checkData = await Department.findAll({
           where: {
-            email: req.body.email,
+            department: req.body.department,
           },
         });
 
-        const profiles = await Profile.findAll({
-          attributes: ["id", "profile"],
-        });
-        const dataToSend = apiSendData(req.body, profiles, "users");
-        if (dataToSend.error) {
-          res.status(409).json({
-            message: dataToSend?.error,
-          });
-        } else if (checkData.length > 0) {
+        // const profiles = await Profile.findAll({
+        //   attributes: ["id", "profile"],
+        // });
+        // const dataToSend = apiSendData(req.body, checkData, "departments");
+        // if (dataToSend.error) {
+        //   res.status(409).json({
+        //     message: dataToSend?.error,
+        //   });
+        // } else
+        if (checkData.length > 0) {
           res.status(409).json({
             message: `Já existe um${
               info?.gen === "a" ? info.gen : ""
@@ -53,9 +50,9 @@ export default async function handler(req: any, res: any) {
             }`,
           });
         } else {
-          console.log("Data to send: ", dataToSend);
-          await User.create({
-            ...dataToSend?.data,
+          // console.log("Data to send: ", dataToSend);
+          await Department.create({
+            ...req.body,
           }).then((result) => {
             res.status(201).json({
               message: `${info?.title}${
@@ -71,20 +68,22 @@ export default async function handler(req: any, res: any) {
       break;
     case "PUT":
       try {
-        const profiles = await Profile.findAll({
-          attributes: ["id", "profile"],
-        });
-        const dataToSend = apiSendData(req.body, profiles, "users");
-        await User.findAll({ where: { id: req.body.id } }).then(
+        // const profiles = await Profile.findAll({
+        //   attributes: ["id", "profile"],
+        // });
+        // const dataToSend = apiSendData(req.body, profiles, "departments");
+        await Department.findAll({ where: { id: req.body.id } }).then(
           async (result) => {
-            if (dataToSend.error) {
-              res.status(409).json({
-                message: dataToSend.error,
-              });
-            } else if (result.length > 0) {
-              await User.update(
+            // if (dataToSend.error) {
+            //   res.status(409).json({
+            //     message: dataToSend.error,
+            //   });
+            // } else
+            if (result.length > 0) {
+              console.log("REQBODY", req.body);
+              await Department.update(
                 {
-                  ...dataToSend.data,
+                  ...req.body,
                 },
                 { where: { id: req.body.id } }
               );
@@ -109,10 +108,10 @@ export default async function handler(req: any, res: any) {
       break;
     case "DELETE":
       try {
-        await User.findAll({ where: { id: req.query.id } }).then(
+        await Department.findAll({ where: { id: req.query.id } }).then(
           async (result) => {
             if (result.length > 0) {
-              await User.destroy({ where: { id: req.query.id } });
+              await Department.destroy({ where: { id: req.query.id } });
               res.status(200).json({
                 message: `${info?.title} deletad${info?.gen} com sucesso!`,
               });

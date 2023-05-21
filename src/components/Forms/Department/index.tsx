@@ -20,7 +20,7 @@ const DepartmentFields: React.FC<DepartmentFieldsProps> = ({
   blockEdition,
   externalData,
 }) => {
-  externalData = ["Sim", "Não"];
+  console.log("Entrou aqui");
   return (
     <>
       <div

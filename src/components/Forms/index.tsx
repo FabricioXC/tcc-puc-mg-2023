@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { UserData } from "@/models/pages/data";
+import { AllData, UserData } from "@/models/pages/data";
 import { ErrorFieldMessage } from "@/helper/presentation/constants";
 import { Button, InputGroup } from "react-bootstrap";
 import useWindowDimensions from "@/helper/get-dimensions";
@@ -10,7 +10,7 @@ import axios from "axios";
 import ConfirmationModal from "@/components/Modal/ConfirmationModal";
 import StandardModal from "@/components/Modal/StandardModal";
 import LoadingModalSpinner from "@/components/Loading/LoadingModalSpinner";
-import { makeInitialValues, validateForm } from "./functions";
+import { makeInfoGender, makeInitialValues, validateForm } from "./functions";
 import { makeFormFields } from "./fields";
 interface BaseFormProps {
   handleNewClicked: any;
@@ -36,42 +36,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
     gen: "",
   });
   useEffect(() => {
-    if (dataType) {
-      let title = "";
-      let path = "";
-      let gen = "";
-
-      switch (dataType) {
-        case "users":
-          title = "Usuário";
-          path = "users";
-          gen = "o";
-          break;
-        case "departments":
-          title = "Departamento";
-          path = "departments";
-          gen = "o";
-          break;
-        case "tasks":
-          title = "Tarefa";
-          path = "tasks";
-          gen = "a";
-          break;
-        case "status":
-          title = "Status";
-          path = "status";
-          gen = "o";
-          break;
-        case "priorities":
-          title = "Prioridade";
-          path = "priorities";
-          gen = "a";
-        default:
-          break;
-      }
-
-      setDataConfig({ title: title, path: path, gen: gen });
-    }
+    setDataConfig(makeInfoGender(dataType));
   }, [dataType]);
   const error = ErrorFieldMessage;
   const [actionType, setActionType] = useState<
@@ -257,7 +222,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
     }
   };
 
-  const validate = (values: UserData) => {
+  const validate = (values: AllData) => {
     return validateForm(values, dataType, actionType);
   };
   useEffect(() => {
@@ -281,7 +246,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
       setBlockEdition(false);
     }
   }, [editMode, newClicked]);
-  const formik = useFormik<UserData>({
+  const formik = useFormik<AllData>({
     initialValues: makeInitialValues(dataType, editData as any),
 
     validate,
@@ -398,6 +363,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
   console.log("Values: ", formik.values);
   console.log("Errors: ", formik.errors);
   const breakPoint = width && width < 617;
+  console.log("DATA TYPE: ", dataType);
   return (
     <>
       <ConfirmationModal
@@ -417,6 +383,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
       {/* {!isLoading && ( */}
 
       {buttonSet()}
+
       {makeFormFields(
         dataType,
         fieldDisabled,

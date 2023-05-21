@@ -9,7 +9,7 @@ import {
 } from "@/models/pages/data";
 
 export const validateForm = (
-  values: UserData,
+  values: AllData,
   dataType: "users" | "departments" | "tasks" | "status" | "priorities",
   actionType: "PUT" | "POST" | "DELETE" | null
 ): any => {
@@ -17,36 +17,80 @@ export const validateForm = (
   let response = null;
   switch (dataType) {
     case "users":
-      const errors: UserData = {} as UserData;
+      const uErrors: UserData = {} as UserData;
 
       if (!values.first_name) {
-        errors.first_name = error.REQUIRED_FIELD;
+        uErrors.first_name = error.REQUIRED_FIELD;
       }
       if (!values.last_name) {
-        errors.last_name = error.REQUIRED_FIELD;
+        uErrors.last_name = error.REQUIRED_FIELD;
       }
 
       if (!values.email) {
-        errors.email = error.REQUIRED_FIELD;
+        uErrors.email = error.REQUIRED_FIELD;
       } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
       ) {
-        errors.email = error.IVALID_EMAIL_FORMAT;
+        uErrors.email = error.IVALID_EMAIL_FORMAT;
       }
 
       if (!values.profile) {
-        errors.profile = error.REQUIRED_FIELD as any;
+        uErrors.profile = error.REQUIRED_FIELD as any;
       }
-      console.log("Errors: ", errors);
-      if (actionType !== "DELETE") response = errors;
+      console.log("Errors: ", uErrors);
+      if (actionType !== "DELETE") response = uErrors;
       break;
     case "departments":
+      const dErrors: DepartmentData = {} as DepartmentData;
+
+      if (!values.department) {
+        dErrors.department = error.REQUIRED_FIELD;
+      }
+      if (actionType !== "DELETE") response = dErrors;
       break;
     case "tasks":
+      const tErrors: TaskData = {} as TaskData;
+
+      if (!values.title) {
+        tErrors.title = error.REQUIRED_FIELD;
+      }
+      if (!values.description) {
+        tErrors.description = error.REQUIRED_FIELD;
+      }
+
+      if (!values.user) {
+        tErrors.user = error.REQUIRED_FIELD as any;
+      }
+
+      if (!values.department) {
+        tErrors.department = error.REQUIRED_FIELD as any;
+      }
+
+      if (!values.priority) {
+        tErrors.priority = error.REQUIRED_FIELD as any;
+      }
+
+      if (!values.status) {
+        tErrors.status = error.REQUIRED_FIELD as any;
+      }
+      console.log("Errors: ", tErrors);
+      if (actionType !== "DELETE") response = tErrors;
       break;
     case "status":
+      const sErrors: StatusData = {} as StatusData;
+
+      if (!values.status) {
+        sErrors.status = error.REQUIRED_FIELD;
+      }
+      if (actionType !== "DELETE") response = sErrors;
       break;
     case "priorities":
+      const pErrors: PriorityData = {} as PriorityData;
+
+      if (!values.priority) {
+        pErrors.priority = error.REQUIRED_FIELD;
+      }
+      if (actionType !== "DELETE") response = pErrors;
       break;
     default:
       break;
@@ -130,4 +174,47 @@ export const makeInitialValues = (dataType: string, editData: AllData): any => {
       break;
   }
   return response;
+};
+
+export const makeInfoGender = (
+  dataType: "users" | "departments" | "tasks" | "status" | "priorities"
+) => {
+  let title = "";
+  let path = "";
+  let gen = "";
+  if (dataType) {
+    // let title = "";
+    // let path = "";
+    // let gen = "";
+
+    switch (dataType) {
+      case "users":
+        title = "Usuário";
+        path = "users";
+        gen = "o";
+        break;
+      case "departments":
+        title = "Departamento";
+        path = "departments";
+        gen = "o";
+        break;
+      case "tasks":
+        title = "Tarefa";
+        path = "tasks";
+        gen = "a";
+        break;
+      case "status":
+        title = "Status";
+        path = "status";
+        gen = "o";
+        break;
+      case "priorities":
+        title = "Prioridade";
+        path = "priorities";
+        gen = "a";
+      default:
+        break;
+    }
+  }
+  return { title: title, path: path, gen: gen };
 };

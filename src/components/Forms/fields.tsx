@@ -14,6 +14,8 @@ export const makeFormFields = (
   externalData: any
 ) => {
   let fields = null;
+
+  console.log("Enrou no fileds");
   switch (dataType) {
     case "users":
       fields = (
@@ -28,44 +30,52 @@ export const makeFormFields = (
       );
       break;
     case "departments":
-      <DepartmentFields
-        fieldDisabled={fieldDisabled}
-        firstClick={firstClick}
-        breakPoint={breakPoint}
-        formik={formik}
-        blockEdition={blockEdition}
-        externalData={externalData}
-      />;
+      fields = (
+        <DepartmentFields
+          fieldDisabled={fieldDisabled}
+          firstClick={firstClick}
+          breakPoint={breakPoint}
+          formik={formik}
+          blockEdition={blockEdition}
+          externalData={externalData}
+        />
+      );
       break;
     case "tasks":
-      <TaskFields
-        fieldDisabled={fieldDisabled}
-        firstClick={firstClick}
-        breakPoint={breakPoint}
-        formik={formik}
-        blockEdition={blockEdition}
-        externalData={externalData}
-      />;
+      fields = (
+        <TaskFields
+          fieldDisabled={fieldDisabled}
+          firstClick={firstClick}
+          breakPoint={breakPoint}
+          formik={formik}
+          blockEdition={blockEdition}
+          externalData={externalData}
+        />
+      );
       break;
     case "status":
-      <StatusFields
-        fieldDisabled={fieldDisabled}
-        firstClick={firstClick}
-        breakPoint={breakPoint}
-        formik={formik}
-        blockEdition={blockEdition}
-        externalData={externalData}
-      />;
+      fields = (
+        <StatusFields
+          fieldDisabled={fieldDisabled}
+          firstClick={firstClick}
+          breakPoint={breakPoint}
+          formik={formik}
+          blockEdition={blockEdition}
+          externalData={externalData}
+        />
+      );
       break;
     case "priorities":
-      <PriorityFields
-        fieldDisabled={fieldDisabled}
-        firstClick={firstClick}
-        breakPoint={breakPoint}
-        formik={formik}
-        blockEdition={blockEdition}
-        externalData={externalData}
-      />;
+      fields = (
+        <PriorityFields
+          fieldDisabled={fieldDisabled}
+          firstClick={firstClick}
+          breakPoint={breakPoint}
+          formik={formik}
+          blockEdition={blockEdition}
+          externalData={externalData}
+        />
+      );
       break;
     default:
       break;

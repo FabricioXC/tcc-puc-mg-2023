@@ -9,6 +9,7 @@ interface TableComponentProps {
   remoteData: any[];
   handleNewClicked: any;
   setEditData: any;
+  isLoading?: boolean;
 }
 // {first_name: 'Fabricio', last_name: 'Chiaradia', email: 'fabricioxc@gmail.com'}
 
@@ -17,6 +18,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
   remoteData,
   handleNewClicked,
   setEditData,
+  isLoading,
 }) => {
   //   console.log("Header: ", header);
   console.log("remoteData: ", remoteData);
@@ -25,12 +27,12 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const data = React.useMemo(() => remoteData, [remoteData]);
 
   const columns = React.useMemo(() => header, [header]);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    if (remoteData && remoteData.length) {
-      setIsLoading(false);
-    }
-  }, [remoteData]);
+  //   const [isLoading, setIsLoading] = useState(true);
+  //   useEffect(() => {
+  //     if (remoteData && remoteData.length) {
+  //       setIsLoading(false);
+  //     }
+  //   }, [remoteData]);
   //   Spinner
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     // eslint-disable-next-line
@@ -119,60 +121,78 @@ const TableComponent: React.FC<TableComponentProps> = ({
       {!isLoading && (
         <div>
           {buttonSet()}
-          <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-            <thead>
-              {headerGroups.map((headerGroup, i) => (
-                // eslint-disable-next-line react/jsx-key
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
+
+          {!remoteData.length ? (
+            <div
+              style={{
+                width: "550px",
+                height: "200px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "30px",
+              }}
+            >
+              {" "}
+              {"Nenhum dado encontrado"}
+            </div>
+          ) : (
+            <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+              <thead>
+                {headerGroups.map((headerGroup, i) => (
+                  // eslint-disable-next-line react/jsx-key
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      // eslint-disable-next-line react/jsx-key
+                      <th
+                        {...column.getHeaderProps()}
+                        style={{
+                          borderBottom: "solid 3px red",
+                          background: "aliceblue",
+                          color: "black",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {column.render("Header")}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {rows.map((row, i) => {
+                  prepareRow(row);
+                  return (
                     // eslint-disable-next-line react/jsx-key
-                    <th
-                      {...column.getHeaderProps()}
-                      style={{
-                        borderBottom: "solid 3px red",
-                        background: "aliceblue",
-                        color: "black",
-                        fontWeight: "bold",
+                    <tr
+                      {...row.getRowProps()}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setEditData(makeEditData(row, router.pathname));
                       }}
                     >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                  // eslint-disable-next-line react/jsx-key
-                  <tr
-                    {...row.getRowProps()}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setEditData(makeEditData(row, router.pathname));
-                    }}
-                  >
-                    {row.cells.map((cell) => {
-                      return (
-                        // eslint-disable-next-line react/jsx-key
-                        <td
-                          {...cell.getCellProps()}
-                          style={{
-                            padding: "10px",
-                            border: "solid 1px gray",
-                            background: "papayawhip",
-                          }}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                      {row.cells.map((cell) => {
+                        return (
+                          // eslint-disable-next-line react/jsx-key
+                          <td
+                            {...cell.getCellProps()}
+                            style={{
+                              padding: "10px",
+                              border: "solid 1px gray",
+                              background: "papayawhip",
+                            }}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
     </Container>

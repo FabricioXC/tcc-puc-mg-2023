@@ -20,9 +20,11 @@ export default function Users() {
   const [editData, setEditData] = useState<UserData | null>(null);
   console.log("Users: ", users);
   const [reloadData, setReloadData] = useState(true);
+  const [isLoadingTable, setIsLoadingTable] = useState(false);
 
   useEffect(() => {
     if (reloadData) {
+      setIsLoadingTable(true);
       axios
         .get("/api/users")
         .then(({ data }) => {
@@ -37,6 +39,9 @@ export default function Users() {
           }
           setErrorMessage(message);
           console.log("Users Error: ", error);
+        })
+        .finally(() => {
+          setIsLoadingTable(false);
         });
       setReloadData(false);
     }
@@ -85,6 +90,7 @@ export default function Users() {
             remoteData={users}
             handleNewClicked={handleNewClicked}
             setEditData={setEditData}
+            isLoading={isLoadingTable}
           />
         ) : (
           <BaseForm

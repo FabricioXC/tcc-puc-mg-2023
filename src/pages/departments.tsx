@@ -26,6 +26,7 @@ export default function Departments() {
       axios
         .get("/api/departments")
         .then(({ data }) => {
+          console.log("Departments: ", data);
           setDepartments(data.departments);
         })
         .catch((error) => {
