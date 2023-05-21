@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { UserData } from "@/models/pages/user/user-data";
+import { UserData } from "@/models/pages/data";
 import { ErrorFieldMessage } from "@/helper/presentation/constants";
 import { Button, InputGroup } from "react-bootstrap";
 import useWindowDimensions from "@/helper/get-dimensions";
@@ -17,7 +17,7 @@ interface BaseFormProps {
   editData?: UserData | null;
   newClicked: boolean;
   setEditData: any;
-  externalData: string[];
+  externalData?: string[];
   reloadData: any;
   dataType: "users" | "departments" | "tasks" | "status" | "priorities";
 }
@@ -282,7 +282,7 @@ const BaseForm: React.FC<BaseFormProps> = ({
     }
   }, [editMode, newClicked]);
   const formik = useFormik<UserData>({
-    initialValues: makeInitialValues(dataType, editData),
+    initialValues: makeInitialValues(dataType, editData as any),
 
     validate,
     onSubmit: (values, { resetForm }) => {

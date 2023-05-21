@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import NavbarOptions from "./NavbarOptions/NavbarOptions";
-import { ProfileData, UserData } from "@/models/pages/user/user-data";
+import { ProfileData, UserData } from "@/models/pages/data";
 import UserInfo from "./UserInfo/UserInfo";
 import useWindowDimensions from "@/helper/get-dimensions";
 import { navbarChangeBreakpoint } from "@/helper/functions";

@@ -2,47 +2,38 @@
 import { Model, DataTypes } from "sequelize";
 import connection from "../connection";
 
-const initUser = (sequelize, Types) => {
-  class User extends Model {
-    static associate(models) {
-      User.belongsTo(models.Profile);
-      models.Profile.hasMany(User);
-      // User.belongsTo(models.Department);
-      // models.Department.hasMany(User);
-
-      // ClientId: Types.INTEGER,
-      // OwnerId: Types.INTEGER,
-      // DepartmentId: Types.INTEGER,
-      // PriorityId: Types.INTEGER,
-      // StatusId: Types.INTEGER,
-      // this.belongsTo(models.Department, {
-      //   foreignKey: "department_id",
-      //   as: "department",
-      // });
-    }
+const initStatus = (sequelize, Types) => {
+  class Status extends Model {
+    // static associate(models) {
+    //   Status.belongsTo(models.Profile);
+    //   models.Profile.hasMany(Status);
+    //   // this.belongsTo(models.Status, {
+    //   //   foreignKey: "department_id",
+    //   //   as: "department",
+    //   // });
+    // }
   }
-  User.init(
+  Status.init(
     {
-      first_name: Types.STRING,
-      last_name: Types.STRING,
-      email: Types.STRING,
-      ProfileId: Types.INTEGER,
-
+      status: Types.STRING,
+      // last_name: Types.STRING,
+      // email: Types.STRING,
+      // ProfileId: Types.INTEGER,
       // profile: Types.INTEGER,
       // department: Types.INTEGER,
     },
     {
       sequelize,
-      modelName: "User",
-      tableName: "users",
+      modelName: "Status",
+      tableName: "status",
       createdAt: "created_at",
       updatedAt: "updated_at",
     }
   );
-  return User;
+  return Status;
 };
 
-export default initUser(connection, DataTypes);
+export default initStatus(connection, DataTypes);
 
 // 'use strict';
 // const {

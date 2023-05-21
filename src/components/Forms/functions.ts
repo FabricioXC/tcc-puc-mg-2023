@@ -1,5 +1,12 @@
 import { ErrorFieldMessage } from "@/helper/presentation/constants";
-import { UserData } from "@/models/pages/user/user-data";
+import {
+  AllData,
+  DepartmentData,
+  PriorityData,
+  StatusData,
+  TaskData,
+  UserData,
+} from "@/models/pages/data";
 
 export const validateForm = (
   values: UserData,
@@ -28,7 +35,7 @@ export const validateForm = (
       }
 
       if (!values.profile) {
-        errors.profile = error.REQUIRED_FIELD;
+        errors.profile = error.REQUIRED_FIELD as any;
       }
       console.log("Errors: ", errors);
       if (actionType !== "DELETE") response = errors;
@@ -47,10 +54,7 @@ export const validateForm = (
   return response;
 };
 
-export const makeInitialValues = (
-  dataType: string,
-  editData: UserData | null | undefined
-): any => {
+export const makeInitialValues = (dataType: string, editData: AllData): any => {
   let response = null;
   switch (dataType) {
     case "users":
@@ -71,12 +75,56 @@ export const makeInitialValues = (
       }
       break;
     case "departments":
+      if (editData) {
+        response = {
+          department: editData?.department,
+        };
+      } else {
+        response = {
+          department: "",
+        };
+      }
       break;
     case "tasks":
+      if (editData) {
+        response = {
+          title: editData?.title,
+          description: editData?.description,
+          user: editData?.user,
+          department: editData?.department,
+          priority: editData?.priority,
+          status: editData?.status,
+        };
+      } else {
+        response = {
+          first_name: "",
+          last_name: "",
+          email: "",
+          profile: "",
+        };
+      }
       break;
     case "status":
+      if (editData) {
+        response = {
+          status: editData?.status,
+        };
+      } else {
+        response = {
+          status: "",
+        };
+      }
       break;
     case "priorities":
+      if (editData) {
+        response = {
+          priority: editData?.priority,
+        };
+      } else {
+        response = {
+          priority: "",
+        };
+      }
       break;
     default:
       break;

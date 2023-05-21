@@ -20,7 +20,6 @@ const TaskFields: React.FC<TaskFieldsProps> = ({
   blockEdition,
   externalData,
 }) => {
-  externalData = ["Sim", "Não"];
   return (
     <>
       <div
@@ -35,16 +34,16 @@ const TaskFields: React.FC<TaskFieldsProps> = ({
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Usuário"}
-          name={"user"}
+          label={"Tarefa"}
+          name={"title"}
         />
         <TextInput
           disabled={fieldDisabled}
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Título"}
-          name={"title"}
+          label={"Usuário"}
+          name={"user"}
         />
       </div>
       <div
@@ -75,18 +74,36 @@ const TaskFields: React.FC<TaskFieldsProps> = ({
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Finalizada"}
-          name={"completed"}
+          label={"Status"}
+          name={"status"}
           options={externalData}
         />
 
-        <TextInput
+        <Select
           disabled={fieldDisabled}
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Expira em"}
-          name={"expires_at"}
+          label={"Prioridade"}
+          name={"priority"}
+          options={externalData}
+        />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: breakPoint ? "column" : "row",
+          columnGap: "18px",
+        }}
+      >
+        <Select
+          disabled={fieldDisabled}
+          showError={firstClick}
+          formik={formik}
+          maxWidth="250px"
+          label={"Departamento"}
+          name={"department"}
+          options={externalData}
         />
       </div>
     </>

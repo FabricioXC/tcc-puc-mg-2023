@@ -13,6 +13,7 @@ if (process.env.NODE_ENV === "production") {
   sequelize = new Sequelize(config.test);
 } else {
   sequelize = new Sequelize(config.development);
+  // sequelize.sync({ force: true });
   console.log("Development mode");
 }
 

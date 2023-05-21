@@ -1,4 +1,4 @@
-import { ProfileData } from "../pages/user/user-data";
+import { ProfileData } from "../pages/data";
 import { Dropdown, NavbarMenuOptions, Option } from "./navbarData";
 
 const makeNavbarMenuOptions = (
@@ -9,7 +9,9 @@ const makeNavbarMenuOptions = (
     title: "Cadastro",
     options: [
       { title: "Usuários", path: "/users" },
-      { title: "Setor", path: "/tasks" },
+      { title: "Departamento", path: "/departments" },
+      { title: "Prioridade", path: "/priorities" },
+      { title: "Status", path: "/status" },
       { title: "Tarefas", path: "/tasks" },
     ],
   };

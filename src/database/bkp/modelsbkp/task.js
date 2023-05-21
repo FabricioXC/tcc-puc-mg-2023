@@ -2,42 +2,19 @@ import { Model, DataTypes } from "sequelize";
 import connection from "../connection";
 
 const initTask = (sequelize, Types) => {
-  class Task extends Model {
-    static associate(models) {
-      Task.belongsTo(models.User);
-      models.user.hasMany(Task);
-      Task.belongsTo(models.Department);
-      models.Department.hasMany(Task);
-      Task.belongsTo(models.Priority);
-      models.Priority.hasMany(Task);
-      Task.belongsTo(models.Status);
-      models.Status.hasMany(Task);
-      // ClientId: Types.INTEGER,
-      // OwnerId: Types.INTEGER,
-      // DepartmentId: Types.INTEGER,
-      // PriorityId: Types.INTEGER,
-      // StatusId: Types.INTEGER,
-      // this.belongsTo(models.Department, {
-      //   foreignKey: "department_id",
-      //   as: "department",
-      // });
-    }
-  }
+  class Task extends Model {}
   Task.init(
     {
-      // ClientId: Types.INTEGER,
-      UserId: Types.INTEGER,
-      DepartmentId: Types.INTEGER,
-      PriorityId: Types.INTEGER,
-      StatusId: Types.INTEGER,
+      user_id: Types.INTEGER,
       title: Types.STRING,
       description: Types.STRING,
-      info: Types.STRING,
+      completed: Types.BOOLEAN,
+      expires_at: Types.STRING,
     },
     {
       sequelize,
       modelName: "Task",
-      tableName: "tasks",
+      tableName: "task",
       createdAt: "created_at",
       updatedAt: "updated_at",
     }

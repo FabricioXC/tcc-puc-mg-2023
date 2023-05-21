@@ -1,5 +1,5 @@
 import NavbarComponent from "@/components/Navbar/Navbar";
-import { ProfileData } from "@/models/pages/user/user-data";
+import { ProfileData } from "@/models/pages/data";
 import { MainContainer } from "@/styles/containers";
 
 interface StandardLayoutProps {

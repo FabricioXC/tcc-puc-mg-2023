@@ -3,33 +3,13 @@ import { Model, DataTypes } from "sequelize";
 import connection from "../connection";
 
 const initUser = (sequelize, Types) => {
-  class User extends Model {
-    static associate(models) {
-      User.belongsTo(models.Profile);
-      models.Profile.hasMany(User);
-      // User.belongsTo(models.Department);
-      // models.Department.hasMany(User);
-
-      // ClientId: Types.INTEGER,
-      // OwnerId: Types.INTEGER,
-      // DepartmentId: Types.INTEGER,
-      // PriorityId: Types.INTEGER,
-      // StatusId: Types.INTEGER,
-      // this.belongsTo(models.Department, {
-      //   foreignKey: "department_id",
-      //   as: "department",
-      // });
-    }
-  }
+  class User extends Model {}
   User.init(
     {
       first_name: Types.STRING,
       last_name: Types.STRING,
       email: Types.STRING,
-      ProfileId: Types.INTEGER,
-
-      // profile: Types.INTEGER,
-      // department: Types.INTEGER,
+      profile: Types.STRING,
     },
     {
       sequelize,

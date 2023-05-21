@@ -1,6 +1,6 @@
 import { NavbarFactory } from "@/models/navbar/factory";
 import { NavbarMenuOptions } from "@/models/navbar/navbarData";
-import { ProfileData } from "@/models/pages/user/user-data";
+import { ProfileData } from "@/models/pages/data";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";

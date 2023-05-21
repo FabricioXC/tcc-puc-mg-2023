@@ -1,30 +1,26 @@
+import { Profile } from "@/database/models";
 import User from "../../database/models/user";
-// import logger from "../../services/logger";
+import { userProfileGetData, userProfileSendData } from "@/helper/api/users";
 
 export default async function handler(req: any, res: any) {
-  // const User = require("../../database/models/index");
-  // await User.sync();
-  // .sync({ force: false })
-  // .then((d) => {
-  //   console.log(d);
-  // })
-  // .catch((e) => {
-  //   console.log(e);
-  // });
   switch (req.method) {
     case "GET":
       try {
-        // const task = await Task.findOne();
-        // if (task) {
-        //   console.log('User for the task', await task.getUser());
-        // }
-
         const users = await User.findAll({
-          attributes: ["id", "first_name", "last_name", "email", "profile"],
-          //   include: "tasks",
-          limit: 100,
+          include: [
+            {
+              // Notice `include` takes an ARRAY
+              model: Profile,
+              // foreignKey: "ProfileId",
+              // as: "rem_profile",
+            },
+          ],
         });
-        res.status(200).json({ users });
+
+        const sendUsers = userProfileGetData(users);
+        // console.log("SEND USERS: ", sendUsers);
+
+        res.status(200).json({ users: sendUsers });
       } catch (e: any) {
         // logger.error(e.stack);
         res.status(400).json({
@@ -36,22 +32,28 @@ export default async function handler(req: any, res: any) {
     case "POST":
       console.log("REQU POST: ", req.body);
       try {
-        //   check data has already been created
         const checkData = await User.findAll({
           where: {
             email: req.body.email,
           },
         });
-        if (checkData.length > 0) {
+
+        const profiles = await Profile.findAll({
+          attributes: ["id", "profile"],
+        });
+        const dataToSend = userProfileSendData(req.body, profiles);
+        if (dataToSend.error) {
+          res.status(409).json({
+            message: dataToSend?.error,
+          });
+        } else if (checkData.length > 0) {
           res.status(409).json({
             message: "Já existe um usuário cadastrado com este email!",
           });
         } else {
+          console.log("Data to send: ", dataToSend);
           await User.create({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            profile: req.body.profile,
+            ...dataToSend?.data,
           }).then((result) => {
             res.status(201).json({
               message: `Usuário ${req.body.first_name} criado com sucesso!`,
@@ -61,33 +63,28 @@ export default async function handler(req: any, res: any) {
       } catch (error) {
         res.status(404).json({ message: error });
       }
-      //
-      //   const users = await User.create({
-      //     first_name: req.body.first_name,
-      //     last_name: req.body.last_name,
-      //     email: req.body.email,
-      //     profile: req.body.profile,
-      //   });
-      //   res.status(200).json({ users });
-      // } catch (e: any) {
-      //   // logger.error(e.stack);
-      //   res.status(400).json({
-      //     error_code: "post_users",
-      //     message: e.message,
-      //   });
-      // }
+
       break;
     case "PUT":
       try {
+        const profiles = await Profile.findAll({
+          attributes: ["id", "profile"],
+        });
+        const dataToSend = userProfileSendData(req.body, profiles);
         await User.findAll({ where: { id: req.body.id } }).then(
           async (result) => {
-            if (result.length > 0) {
+            if (dataToSend.error) {
+              res.status(409).json({
+                message: dataToSend.error,
+              });
+            } else if (result.length > 0) {
               await User.update(
                 {
-                  first_name: req.body.first_name,
-                  last_name: req.body.last_name,
-                  email: req.body.email,
-                  profile: req.body.profile,
+                  ...dataToSend.data,
+                  // first_name: req.body.first_name,
+                  // last_name: req.body.last_name,
+                  // email: req.body.email,
+                  // profile: req.body.profile,
                 },
                 { where: { id: req.body.id } }
               );
@@ -128,6 +125,4 @@ export default async function handler(req: any, res: any) {
     default:
       break;
   }
-
-  // console.log("RES: ", res);
 }

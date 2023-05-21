@@ -11,12 +11,33 @@ export const makeEditData = (row: any, path: string) => {
       };
       break;
     case "/departments":
+      response = {
+        id: row.cells[0]?.row?.original?.id,
+        department: row?.cells[0]?.row?.original?.department,
+      };
       break;
     case "/tasks":
+      response = {
+        id: row.cells[0]?.row?.original?.id,
+        title: row?.cells[0]?.row?.original?.title,
+        description: row?.cells[0]?.row?.original?.description,
+        user: row?.cells[0]?.row?.original?.user,
+        department: row?.cells[0]?.row?.original?.department,
+        priority: row?.cells[0]?.row?.original?.priority,
+        status: row?.cells[0]?.row?.original?.status,
+      };
       break;
     case "/status":
+      response = {
+        id: row.cells[0]?.row?.original?.id,
+        status: row?.cells[0]?.row?.original?.status,
+      };
       break;
     case "/priorities":
+      response = {
+        id: row.cells[0]?.row?.original?.id,
+        priority: row?.cells[0]?.row?.original?.priority,
+      };
       break;
     default:
       break;
