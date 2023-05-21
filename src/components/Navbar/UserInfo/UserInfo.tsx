@@ -17,9 +17,10 @@ import {
 
 interface UserInfoProps {
   user: UserData;
+  small?: boolean;
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
+const UserInfo: React.FC<UserInfoProps> = ({ user, small }) => {
   const firstLetter = user?.first_name?.charAt(0);
   const { width, height } = useWindowDimensions();
   return (
@@ -27,7 +28,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
       {user && user && (
         <MainContainer>
           <MessageContainer>
-            {/* <Message>Bem-vindo(a),</Message> */}
+            {!small && <Message>Bem-vindo(a),</Message>}
             <Name>{user.first_name}</Name>
           </MessageContainer>
           <ImageContainer>

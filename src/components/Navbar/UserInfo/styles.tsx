@@ -18,6 +18,7 @@ export const MessageContainer = styled.div`
   /* width: 132px; */
   height: 20px;
   margin-right: 16px;
+  column-gap: 6px;
   /* width: 100%; */
 `;
 

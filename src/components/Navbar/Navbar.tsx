@@ -42,7 +42,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
             // border: "1px solid red",
           }}
         >
-          {small && <UserInfo user={user as UserData} />}
+          {small && <UserInfo user={user as UserData} small={small} />}
           <Navbar.Toggle
             className="border-0"
             aria-controls={`offcanvasNavbar-expand-md`}
@@ -82,7 +82,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
             {small && <Name>{user?.first_name as string}</Name>}
           </div> */}
         </Navbar.Collapse>
-        {!small && <UserInfo user={user as UserData} />}
+        {!small && <UserInfo user={user as UserData} small={small} />}
       </Container>
     </Navbar>
   );
