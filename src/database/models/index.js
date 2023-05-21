@@ -1,5 +1,6 @@
 import User from "./user";
 import Task from "./task";
+import Profile from "./profile";
 
 User.hasMany(Task, {
   foreignKey: "user_id",
@@ -11,4 +12,12 @@ Task.belongsTo(User, {
   as: "user",
 });
 
-export { User, Task };
+Profile.belongsToMany(User, {
+  through: "profile",
+  foreignKey: "id",
+  otherKey: "id",
+});
+User.sync();
+Task.sync();
+Profile.sync();
+export { User, Task, Profile };

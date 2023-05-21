@@ -1,8 +1,10 @@
 import DashboardComponent from "@/components/Dashboard";
+import BaseForm from "@/components/Forms";
 import UsersManagement from "@/components/Forms/User";
 import StandardLayout from "@/components/Layout/StandardLayout";
 import NavbarComponent from "@/components/Navbar/Navbar";
 import TableComponent from "@/components/Table";
+import { makeTableHeaders } from "@/components/Table/headers";
 import { Users } from "@/models/database/database";
 import { UserData } from "@/models/pages/user/user-data";
 import { UserDataFactory } from "@/models/pages/user/user-data/factory";
@@ -74,24 +76,26 @@ export default function Users() {
   const handleReloadData = () => {
     setReloadData(true);
   };
+
   return (
     <>
       <StandardLayout>
         {!newClicked && !editData ? (
           <TableComponent
-            header={UserDataFactory.makeUsersTableHeader()}
+            header={makeTableHeaders("users")}
             remoteData={users}
             handleNewClicked={handleNewClicked}
             setEditData={setEditData}
           />
         ) : (
-          <UsersManagement
+          <BaseForm
             handleNewClicked={handleNewClicked}
             newClicked={newClicked}
             setEditData={setEditData}
             editData={editData}
-            profiles={profiles}
+            externalData={profiles}
             reloadData={handleReloadData}
+            dataType="users"
           />
         )}
 

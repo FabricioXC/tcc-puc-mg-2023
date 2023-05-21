@@ -2,7 +2,15 @@ import User from "../../database/models/user";
 // import logger from "../../services/logger";
 
 export default async function handler(req: any, res: any) {
-  console.log("REQ: ", req.method);
+  // const User = require("../../database/models/index");
+  // await User.sync();
+  // .sync({ force: false })
+  // .then((d) => {
+  //   console.log(d);
+  // })
+  // .catch((e) => {
+  //   console.log(e);
+  // });
   switch (req.method) {
     case "GET":
       try {

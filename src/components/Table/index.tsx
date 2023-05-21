@@ -3,6 +3,7 @@ import { Button, Container, Spinner } from "react-bootstrap";
 import { useTable } from "react-table";
 import { useRouter } from "next/router";
 import LoadingModalSpinner from "../Loading/LoadingModalSpinner";
+import { makeEditData } from "./functions";
 interface TableComponentProps {
   header: any;
   remoteData: any[];
@@ -41,6 +42,30 @@ const TableComponent: React.FC<TableComponentProps> = ({
   //       setNewPressed(true);
   //     }
   //   };
+  //   case "users":
+  //     title = "Usuário";
+  //     path = "users";
+  //     gen = "o";
+  //     break;
+  //   case "departments":
+  //     title = "Departamento";
+  //     path = "departments";
+  //     gen = "o";
+  //     break;
+  //   case "tasks":
+  //     title = "Tarefa";
+  //     path = "tasks";
+  //     gen = "a";
+  //     break;
+  //   case "status":
+  //     title = "Status";
+  //     path = "status";
+  //     gen = "o";
+  //     break;
+  //   case "priorities":
+  //     title = "Prioridade";
+  //     path = "priorities";
+  //     gen = "a";
 
   const buttonSet = () => {
     let btnNewMsg: any;
@@ -51,6 +76,16 @@ const TableComponent: React.FC<TableComponentProps> = ({
       case "/tasks":
         btnNewMsg = "Nova Tarefa";
         break;
+      case "/departments":
+        btnNewMsg = "Novo Departamento";
+        break;
+      case "/status":
+        btnNewMsg = "Novo Status";
+        break;
+      case "/priorities":
+        btnNewMsg = "Nova Prioridade";
+        break;
+
       default:
         btnNewMsg = "Novo";
         break;
@@ -115,31 +150,7 @@ const TableComponent: React.FC<TableComponentProps> = ({
                     {...row.getRowProps()}
                     style={{ cursor: "pointer" }}
                     onClick={() => {
-                      switch (router.pathname) {
-                        case "/users":
-                          setEditData({
-                            id: row.cells[0]?.row?.original?.id,
-                            first_name:
-                              row?.cells[0]?.row?.original?.first_name,
-                            last_name: row?.cells[0]?.row?.original?.last_name,
-                            email: row?.cells[0]?.row?.original?.email,
-                            profile: row?.cells[0]?.row?.original?.profile,
-                          });
-                          //   console.log("Teste: ", row.cells[i].row.original.id);
-                          break;
-                        case "/tasks":
-                          setEditData({
-                            //   id: row.cells[i].row.original.id,
-                            //   first_name: row.cells[i].row.original.first_name,
-                            //   last_name: row.cells[i].row.original.last_name,
-                            //   email: row.cells[i].row.original.email,
-                          });
-                          //   console.log("Teste: ", row.cells[i].row.original.id);
-                          break;
-
-                        default:
-                          break;
-                      }
+                      setEditData(makeEditData(row, router.pathname));
                     }}
                   >
                     {row.cells.map((cell) => {

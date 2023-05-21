@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "model:generate": "env-cmd sequelize-cli model:generate",
+    "migration:generate": "env-cmd sequelize-cli migration:generate",
     "seed": "env-cmd sequelize-cli db:seed:all",
     "migrate": "env-cmd sequelize-cli db:migrate",
     "migrate:rollback": "env-cmd sequelize-cli db:migrate:undo",

@@ -1,3 +1,6 @@
+import { Model, DataTypes } from "sequelize";
+import connection from "../connection";
+
 const initTask = (sequelize, Types) => {
   class Task extends Model {}
   Task.init(

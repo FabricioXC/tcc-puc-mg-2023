@@ -4,15 +4,15 @@ import React from "react";
 import TextInput from "@/components/TextInput";
 import Select from "@/components/Select";
 
-interface UserFieldsProps {
+interface TaskFieldsProps {
   fieldDisabled: boolean;
   firstClick: boolean;
   breakPoint: number;
   formik: any;
   blockEdition: boolean;
-  externalData: any;
+  externalData?: any;
 }
-const UserFields: React.FC<UserFieldsProps> = ({
+const TaskFields: React.FC<TaskFieldsProps> = ({
   fieldDisabled,
   firstClick,
   breakPoint,
@@ -20,6 +20,7 @@ const UserFields: React.FC<UserFieldsProps> = ({
   blockEdition,
   externalData,
 }) => {
+  externalData = ["Sim", "Não"];
   return (
     <>
       <div
@@ -34,16 +35,16 @@ const UserFields: React.FC<UserFieldsProps> = ({
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Nome"}
-          name={"first_name"}
+          label={"Usuário"}
+          name={"user"}
         />
         <TextInput
           disabled={fieldDisabled}
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Sobrenome"}
-          name={"last_name"}
+          label={"Título"}
+          name={"title"}
         />
       </div>
       <div
@@ -54,25 +55,42 @@ const UserFields: React.FC<UserFieldsProps> = ({
         }}
       >
         <TextInput
-          disabled={fieldDisabled || blockEdition}
+          disabled={fieldDisabled}
           showError={firstClick}
           formik={formik}
-          maxWidth="250px"
-          label={"Email"}
-          name={"email"}
+          maxWidth="500px"
+          label={"Descrição"}
+          name={"description"}
         />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: breakPoint ? "column" : "row",
+          columnGap: "18px",
+        }}
+      >
         <Select
           disabled={fieldDisabled}
           showError={firstClick}
           formik={formik}
           maxWidth="250px"
-          label={"Perfil"}
-          name={"profile"}
+          label={"Finalizada"}
+          name={"completed"}
           options={externalData}
+        />
+
+        <TextInput
+          disabled={fieldDisabled}
+          showError={firstClick}
+          formik={formik}
+          maxWidth="250px"
+          label={"Expira em"}
+          name={"expires_at"}
         />
       </div>
     </>
   );
 };
 
-export default UserFields;
+export default TaskFields;
