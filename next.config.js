@@ -14,4 +14,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-// https://lh3.googleusercontent.com/a/AGNmyxaI9qnyQhJPj2426p_Zcqfkpzi1AfIwHlE-kmH4ZLY=s96-c
