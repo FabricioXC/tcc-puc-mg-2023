@@ -18,10 +18,18 @@ const StandardLayout: React.FC<StandardLayoutProps> = ({ children }) => {
     email: user?.email || "",
     profile: "admin" as ProfileData,
   };
+  const handleLogout = () => {
+    auth
+      .signOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log("Error: ", error);
+      });
+  };
 
   return (
     <>
-      <NavbarComponent user={userInfo} />
+      <NavbarComponent user={userInfo} signOut={handleLogout} />
       {/* <div className="p-6"> */}
       <MainContainer>{children}</MainContainer>
     </>

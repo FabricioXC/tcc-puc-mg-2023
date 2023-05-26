@@ -12,6 +12,7 @@ import StandardModal from "@/components/Modal/StandardModal";
 import LoadingModalSpinner from "@/components/Loading/LoadingModalSpinner";
 import { makeInfoGender, makeInitialValues, validateForm } from "./functions";
 import { makeFormFields } from "./fields";
+import { DataType } from "@/models/components/Page/dataPage";
 interface BaseFormProps {
   handleNewClicked: any;
   editData?: UserData | null;
@@ -19,7 +20,7 @@ interface BaseFormProps {
   setEditData: any;
   externalData?: string[];
   reloadData: any;
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities";
+  dataType: DataType;
 }
 const BaseForm: React.FC<BaseFormProps> = ({
   handleNewClicked,

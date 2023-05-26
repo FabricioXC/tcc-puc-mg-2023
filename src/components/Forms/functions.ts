@@ -1,4 +1,5 @@
 import { ErrorFieldMessage } from "@/helper/presentation/constants";
+import { DataType } from "@/models/components/Page/dataPage";
 import {
   AllData,
   DepartmentData,
@@ -10,7 +11,7 @@ import {
 
 export const validateForm = (
   values: AllData,
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities",
+  dataType: DataType,
   actionType: "PUT" | "POST" | "DELETE" | null
 ): any => {
   const error = ErrorFieldMessage;
@@ -176,9 +177,7 @@ export const makeInitialValues = (dataType: string, editData: AllData): any => {
   return response;
 };
 
-export const makeInfoGender = (
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities"
-) => {
+export const makeInfoGender = (dataType: DataType) => {
   let title = "";
   let path = "";
   let gen = "";

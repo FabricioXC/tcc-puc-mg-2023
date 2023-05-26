@@ -1,6 +1,6 @@
-export const makeTableHeaders = (
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities"
-) => {
+import { DataType } from "@/models/components/Page/dataPage";
+
+export const makeTableHeaders = (dataType: DataType) => {
   let header = null;
   switch (dataType) {
     case "users":

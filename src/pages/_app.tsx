@@ -16,8 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
-  console.log("Userrrrrrrrrrrrr: ", user?.displayName);
-  console.log("Router: ", router.pathname);
+  console.log("User: ", user);
+  // console.log("Userrrrrrrrrrrrr: ", user?.displayName);
+  // console.log("Router: ", router.pathname);
   useEffect(() => {
     if (router.pathname !== "/" && !user && !loading) {
       router.push("/");

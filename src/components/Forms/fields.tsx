@@ -1,3 +1,4 @@
+import { DataType } from "@/models/components/Page/dataPage";
 import DepartmentFields from "./Department";
 import PriorityFields from "./Priority";
 import StatusFields from "./Status";
@@ -5,7 +6,7 @@ import TaskFields from "./Task";
 import UserFields from "./User";
 
 export const makeFormFields = (
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities",
+  dataType: DataType,
   fieldDisabled: boolean,
   firstClick: boolean,
   breakPoint: number,

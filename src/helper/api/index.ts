@@ -1,7 +1,6 @@
-export const apiGetData = (
-  users: any,
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities"
-): any => {
+import { DataType } from "@/models/components/Page/dataPage";
+
+export const apiGetData = (users: any, dataType: DataType): any => {
   let returnData: any = [];
   switch (dataType) {
     case "users":
@@ -30,7 +29,7 @@ export const apiGetData = (
 export const apiSendData = (
   remoteDataType: any,
   remoteData: any,
-  dataType: "users" | "departments" | "tasks" | "status" | "priorities"
+  dataType: DataType
 ): any => {
   let error = null;
   let sendData: any = {};

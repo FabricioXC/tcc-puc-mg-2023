@@ -11,15 +11,18 @@ import UserInfo from "./UserInfo/UserInfo";
 import useWindowDimensions from "@/helper/get-dimensions";
 import { navbarChangeBreakpoint } from "@/helper/functions";
 import { Name } from "./UserInfo/styles";
+import { CleanButton } from "../Button/GenButton/styles";
 
 interface NavbarComponentProps {
   user?: UserData;
+  signOut?: () => void;
 }
 
-const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
+const NavbarComponent: React.FC<NavbarComponentProps> = ({ user, signOut }) => {
   const { width, height } = useWindowDimensions();
   const size = navbarChangeBreakpoint(width as number);
   const small = size === "small";
+
   return (
     <Navbar
       bg="light"
@@ -28,7 +31,6 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
     >
       <Container fluid>
         <Navbar.Brand href="/dashboard">TCC PUC-MG</Navbar.Brand>
-        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
 
         <div
           style={{
@@ -36,13 +38,13 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
             flexDirection: "row",
             justifyContent: "flex-end",
             alignItems: "center",
-            // maxWidth: "200px",
-            // width: "40%",
+
             columnGap: "16px",
-            // border: "1px solid red",
           }}
         >
-          {small && <UserInfo user={user as UserData} small={small} />}
+          {small && (width as number) > 350 && (
+            <UserInfo user={user as UserData} small={small} />
+          )}
           <Navbar.Toggle
             className="border-0"
             aria-controls={`offcanvasNavbar-expand-md`}
@@ -59,30 +61,34 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user }) => {
             </div>
           </Navbar.Toggle>
         </div>
-        {/* </Container> */}
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <NavbarOptions profile={"master" as unknown as ProfileData} />
 
-            {/* <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link> */}
-            {/* <NavDropdown title="Cadastros" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {small && (width as number) >= 350 && (
+                <CleanButton onClick={signOut}>{"Sair"}</CleanButton>
+              )}
+            </div>
           </Nav>
-          {/* <div style={{ position: "fixed", right: "25px", top: "15%" }}>
-            {small && <Name>{user?.first_name as string}</Name>}
-          </div> */}
         </Navbar.Collapse>
-        {!small && <UserInfo user={user as UserData} small={small} />}
+        {!small && (
+          <div
+            style={{ display: "flex", flexDirection: "row", columnGap: "12px" }}
+          >
+            <>
+              <UserInfo user={user as UserData} small={small} />
+              <CleanButton onClick={signOut}>{"Sair"}</CleanButton>
+            </>
+          </div>
+        )}
       </Container>
     </Navbar>
   );

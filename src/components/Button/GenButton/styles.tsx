@@ -85,7 +85,7 @@ export const GoogleButtonContainer = styled.button<GenericButtonProps>`
   display: flex;
   align-items: center;
   letter-spacing: 0.21875px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   width: 288px;
   height: 50px;
   padding-left: 15px;
@@ -96,4 +96,30 @@ export const GoogleButtonContainer = styled.button<GenericButtonProps>`
 export const GoogleLogoContainer = styled.div`
   margin-top: 5px;
   margin-right: 15px;
+  display: flex;
+  column-gap: 10px;
+`;
+
+export const CleanButton = styled.button<GenericButtonProps>`
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 6px 16px;
+  gap: 10px;
+  background-color: "none";
+
+  border: 1px solid #e6e6e6;
+  border-radius: 6.72px;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+
+  color: #666666;
+
+  cursor: pointer;
 `;

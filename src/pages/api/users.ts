@@ -8,23 +8,44 @@ export default async function handler(req: any, res: any) {
 
   switch (req.method) {
     case "GET":
-      try {
-        const users = await User.findAll({
-          include: [
-            {
-              model: Profile,
-            },
-          ],
-        });
+      if (req.query.email) {
+        try {
+          const users = await User.findAll({
+            include: [
+              {
+                model: Profile,
+              },
+            ],
+          });
 
-        const sendUsers = apiGetData(users, "users");
+          const sendUsers = apiGetData(users, "users");
 
-        res.status(200).json({ users: sendUsers });
-      } catch (e: any) {
-        res.status(400).json({
-          error_code: "get_users",
-          message: e.message,
-        });
+          res.status(200).json({ users: sendUsers });
+        } catch (e: any) {
+          res.status(400).json({
+            error_code: "get_users",
+            message: e.message,
+          });
+        }
+      } else {
+        try {
+          const users = await User.findAll({
+            include: [
+              {
+                model: Profile,
+              },
+            ],
+          });
+
+          const sendUsers = apiGetData(users, "users");
+
+          res.status(200).json({ users: sendUsers });
+        } catch (e: any) {
+          res.status(400).json({
+            error_code: "get_users",
+            message: e.message,
+          });
+        }
       }
       break;
     case "POST":
