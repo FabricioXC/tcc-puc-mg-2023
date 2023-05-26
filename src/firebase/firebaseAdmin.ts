@@ -1,11 +1,10 @@
 const admin = require("firebase-admin");
-const serviceAccount = require("./secrets.json");
 
+import { serviceAccount } from "./firebaseAdminConfig";
 export const verifyIdToken = async (token: string) => {
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert(serviceAccount),
-      //   databaseURL: "https://nextjs-firebase-auth-3b3a9.firebaseio.com",
     });
   }
 
