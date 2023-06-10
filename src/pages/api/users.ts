@@ -2,30 +2,39 @@ import { Profile } from "@/database/models";
 import User from "../../database/models/user";
 import { apiGetData, apiSendData } from "@/helper/api";
 import { makeInfoGender } from "@/components/Forms/functions";
-
+import { headers } from "next/headers";
 export default async function handler(req: any, res: any) {
   const info = makeInfoGender("users");
 
   switch (req.method) {
     case "GET":
-      if (req.query.email) {
+      console.log("Token:", req.headers);
+
+      // const headersList = headers();
+
+      // console.log("Headrs List:", headersList);
+      if (req.query.register) {
         try {
-          const users = await User.findAll({
-            include: [
-              {
-                model: Profile,
-              },
-            ],
-          });
-
-          const sendUsers = apiGetData(users, "users");
-
-          res.status(200).json({ users: sendUsers });
+          // console.log("QUERY: ", req.query);
+          // const checkData = await User.findAll({
+          //   where: {
+          //     email: req.body.email,
+          //   },
+          // });
+          // const users = await User.findAll({
+          //   include: [
+          //     {
+          //       model: Profile,
+          //     },
+          //   ],
+          // });
+          // const sendUsers = apiGetData(users, "users");
+          // res.status(200).json({ users: sendUsers });
         } catch (e: any) {
-          res.status(400).json({
-            error_code: "get_users",
-            message: e.message,
-          });
+          // res.status(400).json({
+          //   error_code: "get_users",
+          //   message: e.message,
+          // });
         }
       } else {
         try {

@@ -6,7 +6,8 @@ import { DataType } from "@/models/components/Page/dataPage";
 import { PageFactory } from "@/models/components/Page/factory";
 import { Users } from "@/models/database/database";
 import { UserData } from "@/models/pages/data";
-import axios from "axios";
+import { getApiClient } from "@/services/axios";
+// import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 interface BasePageProps {
@@ -22,12 +23,12 @@ const BasePage: React.FC<BasePageProps> = ({ dataType, hasExternalData }) => {
   console.log("RemoteData: ", remoteData);
   const [reloadData, setReloadData] = useState(true);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
-
+  const axios = getApiClient();
   useEffect(() => {
     if (reloadData) {
       setIsLoadingTable(true);
       axios
-        .get(`/api/${dataType}`)
+        .get(`/${dataType}`)
         .then(({ data }) => {
           setRemoteData(data[dataType]);
         })
