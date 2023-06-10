@@ -1,4 +1,5 @@
 import { DataType } from "@/models/components/Page/dataPage";
+import { RowStandardContainer } from "./styles";
 
 export const makeTableHeaders = (dataType: DataType) => {
   let header = null;
@@ -8,18 +9,38 @@ export const makeTableHeaders = (dataType: DataType) => {
         {
           Header: "Nome",
           accessor: "first_name", // accessor is the "key" in the data
+          Cell: ({ value }) => (
+            <RowStandardContainer>{value}</RowStandardContainer>
+          ),
+          width: 120,
+          minWidth: 80,
         },
         {
           Header: "Sobrenome",
           accessor: "last_name",
+          Cell: ({ value }) => (
+            <RowStandardContainer>{value}</RowStandardContainer>
+          ),
+          width: 120,
+          minWidth: 80,
         },
         {
           Header: "Email",
           accessor: "email",
+          Cell: ({ value }) => (
+            <RowStandardContainer>{value}</RowStandardContainer>
+          ),
+          width: 200,
+          minWidth: 120,
         },
         {
           Header: "Perfil",
           accessor: "profile",
+          Cell: ({ value }) => (
+            <RowStandardContainer>{value}</RowStandardContainer>
+          ),
+          width: 60,
+          minWidth: 60,
         },
       ];
       break;

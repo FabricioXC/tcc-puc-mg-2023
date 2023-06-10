@@ -1,9 +1,17 @@
+//@ts-nocheck
 import React, { useEffect, useState } from "react";
 import { Button, Container, Spinner } from "react-bootstrap";
-import { useTable } from "react-table";
+import {
+  useTable,
+  useResizeColumns,
+  useFlexLayout,
+  useRowSelect,
+  usePagination,
+} from "react-table";
 import { useRouter } from "next/router";
 import LoadingModalSpinner from "../Loading/LoadingModalSpinner";
 import { makeEditData } from "./functions";
+import { HeaderContainer, TableGridContainer } from "./styles";
 interface TableComponentProps {
   header: any;
   remoteData: any[];
@@ -27,6 +35,16 @@ const TableComponent: React.FC<TableComponentProps> = ({
   const data = React.useMemo(() => remoteData, [remoteData]);
 
   const columns = React.useMemo(() => header, [header]);
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // When using the useFlexLayout:
+      // minWidth: 30, // minWidth is only used as a limit for resizing
+      // width: 200, // width is used for both the flex-basis and flex-grow
+      // maxWidth: 200, // maxWidth is only used as a limit for resizing
+    }),
+    []
+  );
   //   const [isLoading, setIsLoading] = useState(true);
   //   useEffect(() => {
   //     if (remoteData && remoteData.length) {
@@ -34,9 +52,77 @@ const TableComponent: React.FC<TableComponentProps> = ({
   //     }
   //   }, [remoteData]);
   //   Spinner
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    // eslint-disable-next-line
-    useTable({ columns, data });
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    // The rest of these things are super handy, too ;)
+    // canPreviousPage,
+    // canNextPage,
+    // pageOptions,
+    // pageCount,
+    // gotoPage,
+    // nextPage,
+    // previousPage,
+    // setPageSize,
+    // selectedFlatRows,
+
+    // state: { selectedRowIds, pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      // manualPagination: true,
+      defaultColumn,
+    },
+    useFlexLayout,
+    useResizeColumns,
+    usePagination,
+    useRowSelect
+    // (hooks) => {
+    //   hooks.visibleColumns.push((columns) => [
+    //     {
+    //       id: "selection",
+    //       disableResizing: true,
+    //       width: 50,
+    //       minWidth: 50,
+    //       maxWidth: 50,
+
+    //       // The header can use the table's getToggleAllRowsSelectedProps method
+    //       // to render a checkbox
+    //       Header: ({ getToggleAllRowsSelectedProps }) => (
+    //         <Checkbox {...getToggleAllRowsSelectedProps()} />
+    //       ),
+
+    //       // The cell can use the individual row's getToggleRowSelectedProps method
+    //       // to the render a checkbox
+    //       Cell: ({ row }) => (
+    //         <div
+    //           style={{
+    //             height: "100%",
+    //             display: "flex",
+    //             alignItems: "center",
+    //             borderTop: "1px solid #e5eaee",
+    //           }}
+    //         >
+    //           <Checkbox {...row.getToggleRowSelectedProps()} />
+    //         </div>
+    //       ),
+    //     },
+    //     ...columns,
+    //   ]);
+    //   hooks.useInstanceBeforeDimensions.push(({ headerGroups }) => {
+    //     // fix the parent group of the selection button to not be resizable
+    //     const selectionGroupHeader = headerGroups[0].headers[0];
+    //     selectionGroupHeader.canResize = false;
+    //   });
+    // }
+  );
   //   const [newPressed, setNewPressed] = useState(false);
 
   //   const handleNewClick = () => {
@@ -138,60 +224,75 @@ const TableComponent: React.FC<TableComponentProps> = ({
               {"Nenhum dado encontrado"}
             </div>
           ) : (
-            <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-              <thead>
-                {headerGroups.map((headerGroup, i) => (
-                  // eslint-disable-next-line react/jsx-key
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      // eslint-disable-next-line react/jsx-key
-                      <th
-                        {...column.getHeaderProps()}
-                        style={{
-                          borderBottom: "solid 3px red",
-                          background: "aliceblue",
-                          color: "black",
-                          fontWeight: "bold",
-                        }}
-                      >
+            <TableGridContainer
+              {...getTableProps()}
+              // style={{ border: "solid 1px blue" }}
+            >
+              <HeaderContainer>
+                {headerGroups.map((headerGroup, headerIndex) => (
+                  <div key={headerIndex} {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column, columnIndex) => (
+                      <div key={columnIndex} {...column.getHeaderProps()}>
                         {column.render("Header")}
-                      </th>
+                        {column.canResize && (
+                          <div
+                            {...column.getResizerProps()}
+                            className={`resizer ${
+                              column.isResizing ? "isResizing" : ""
+                            }`}
+                          />
+                        )}
+                      </div>
                     ))}
-                  </tr>
+                  </div>
                 ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
+              </HeaderContainer>
+              <div {...getTableBodyProps()}>
+                {rows.map((row, rowIndex) => {
                   prepareRow(row);
                   return (
                     // eslint-disable-next-line react/jsx-key
-                    <tr
+                    <div
+                      key={rowIndex}
                       {...row.getRowProps()}
-                      style={{ cursor: "pointer" }}
+                      style={{
+                        cursor: "pointer",
+                        // border: "solid 1px gray",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
                       onClick={() => {
                         setEditData(makeEditData(row, router.pathname));
                       }}
                     >
-                      {row.cells.map((cell) => {
+                      {row.cells.map((cell, rowIndex) => {
                         return (
                           // eslint-disable-next-line react/jsx-key
-                          <td
-                            {...cell.getCellProps()}
+                          <div
                             style={{
-                              padding: "10px",
-                              border: "solid 1px gray",
-                              background: "papayawhip",
+                              width: "100%",
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "center",
                             }}
+                            key={rowIndex}
+                            {...cell.getCellProps()}
+                            // style={{
+                            //   padding: "10px",
+                            //   border: "solid 1px gray",
+                            //   background: "papayawhip",
+                            // }}
                           >
                             {cell.render("Cell")}
-                          </td>
+                          </div>
                         );
                       })}
-                    </tr>
+                    </div>
                   );
                 })}
-              </tbody>
-            </table>
+              </div>
+            </TableGridContainer>
           )}
         </div>
       )}

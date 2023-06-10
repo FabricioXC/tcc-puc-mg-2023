@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Router from "next/router";
 import {
   MDBContainer,
@@ -202,6 +202,7 @@ function Home() {
     setSaveData(!saveData);
   };
   const [firstClick, setFirstClick] = useState(false);
+
   return (
     <>
       <StandardModal
@@ -291,6 +292,7 @@ function Home() {
         </div>
 
         <MDBBtn
+          style={{ minHeight: "37px" }}
           className="mb-4"
           onClick={() => {
             setFirstClick(true);
