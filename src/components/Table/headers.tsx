@@ -2,14 +2,20 @@ import { DataType } from "@/models/components/Page/dataPage";
 import { RowStandardContainer } from "./styles";
 
 export const makeTableHeaders = (dataType: DataType) => {
-  let header = null;
+  // type Header = {
+  //   Header: string;
+  //   accessor: string;
+  //   Cell: ({ value }: { value: any }) => JSX.Element;
+  // };
+  let header: any = null;
   switch (dataType) {
     case "users":
       header = [
         {
           Header: "Nome",
           accessor: "first_name", // accessor is the "key" in the data
-          Cell: ({ value }) => (
+
+          Cell: ({ value }: { value: any }) => (
             <RowStandardContainer>{value}</RowStandardContainer>
           ),
           width: 120,
@@ -18,7 +24,8 @@ export const makeTableHeaders = (dataType: DataType) => {
         {
           Header: "Sobrenome",
           accessor: "last_name",
-          Cell: ({ value }) => (
+
+          Cell: ({ value }: { value: any }) => (
             <RowStandardContainer>{value}</RowStandardContainer>
           ),
           width: 120,
@@ -27,7 +34,7 @@ export const makeTableHeaders = (dataType: DataType) => {
         {
           Header: "Email",
           accessor: "email",
-          Cell: ({ value }) => (
+          Cell: ({ value }: { value: any }) => (
             <RowStandardContainer>{value}</RowStandardContainer>
           ),
           width: 200,
@@ -36,7 +43,7 @@ export const makeTableHeaders = (dataType: DataType) => {
         {
           Header: "Perfil",
           accessor: "profile",
-          Cell: ({ value }) => (
+          Cell: ({ value }: { value: any }) => (
             <RowStandardContainer>{value}</RowStandardContainer>
           ),
           width: 60,
