@@ -47,12 +47,14 @@ const BasePage: React.FC<BasePageProps> = ({ dataType, hasExternalData }) => {
         });
       setReloadData(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reloadData]);
 
   useEffect(() => {
     if ((newClicked || editData) && hasExternalData) {
       PageFactory.makeExternalData(dataType, setExternalData, setErrorMessage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newClicked, editData]);
 
   console.log(remoteData);
