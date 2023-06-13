@@ -16,9 +16,9 @@ export function getApiClient() {
         console.log("TOKEN: ", idToken);
         // Send token to your backend via HTTPS
         // ...
-        if (idToken) {
-          api.defaults.headers.options.Authorization = `${idToken}`;
-        }
+        // if (idToken) {
+        //   api.defaults.headers.options.Authorization = `${idToken}`;
+        // }
       })
       .catch(function (error) {});
   }
