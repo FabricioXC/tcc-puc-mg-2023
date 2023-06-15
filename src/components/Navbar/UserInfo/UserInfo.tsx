@@ -14,6 +14,7 @@ import {
   MessageContainer,
   Name,
 } from "./styles";
+import Image from "next/image";
 
 interface UserInfoProps {
   user: UserData;
@@ -23,6 +24,7 @@ interface UserInfoProps {
 const UserInfo: React.FC<UserInfoProps> = ({ user, small }) => {
   const firstLetter = user?.first_name?.charAt(0);
   const { width, height } = useWindowDimensions();
+  // user.photoUrl = "";
   return (
     <>
       {user && user && (
@@ -31,10 +33,14 @@ const UserInfo: React.FC<UserInfoProps> = ({ user, small }) => {
             {!small && <Message>Bem-vindo(a),</Message>}
             <Name>{user.first_name}</Name>
           </MessageContainer>
-          <ImageContainer>
-            <LetterContainer>
-              <Letter>{firstLetter && firstLetter ? firstLetter : ""}</Letter>
-            </LetterContainer>
+          <ImageContainer photoUrl={user?.photoUrl}>
+            {user.photoUrl && user.photoUrl ? (
+              <Image src={user.photoUrl} width={36} height={36} alt="Foto" />
+            ) : (
+              <LetterContainer>
+                <Letter>{firstLetter && firstLetter ? firstLetter : ""}</Letter>
+              </LetterContainer>
+            )}
           </ImageContainer>
         </MainContainer>
       )}

@@ -47,14 +47,19 @@ export const Name = styled.div`
   text-transform: capitalize;
 `;
 
-export const ImageContainer = styled.div`
+interface ImageContainerProps {
+  photoUrl?: string;
+}
+export const ImageContainer = styled.div<ImageContainerProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 35px;
+  width: ${({ photoUrl }) => (photoUrl ? "40px" : "36px")};
+  height: ${({ photoUrl }) => (photoUrl ? "40px" : "36px")};
   background: #d7f9ef;
   border-radius: 4px;
+  border-color: ${({ photoUrl }) => (photoUrl ? "#d7f9ef" : "none")};
+  border-width: ${({ photoUrl }) => (photoUrl ? "1px" : "0px")};
 `;
 
 export const LetterContainer = styled.div`

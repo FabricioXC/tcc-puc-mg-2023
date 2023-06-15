@@ -11,12 +11,14 @@ const StandardLayout: React.FC<StandardLayoutProps> = ({ children }) => {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
   console.log(user);
+
   const userInfo = {
-    id: 4,
+    id: user?.providerId,
     first_name: user?.displayName?.split(" ")[0] || "Usuário",
     last_name: user?.displayName?.split(" ")[1] || "",
     email: user?.email || "",
     profile: "admin" as ProfileData,
+    photoUrl: user?.photoURL || "",
   };
   const handleLogout = () => {
     auth
