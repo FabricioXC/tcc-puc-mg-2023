@@ -73,9 +73,7 @@ const NavbarComponent: React.FC<NavbarComponentProps> = ({ user, signOut }) => {
                 justifyContent: "center",
               }}
             >
-              {small && (width as number) >= 350 && (
-                <CleanButton onClick={signOut}>{"Sair"}</CleanButton>
-              )}
+              {small && <CleanButton onClick={signOut}>{"Sair"}</CleanButton>}
             </div>
           </Nav>
         </Navbar.Collapse>
