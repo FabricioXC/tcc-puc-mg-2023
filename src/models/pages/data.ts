@@ -5,11 +5,12 @@ export type AllData = UserData &
   DepartmentData;
 
 export type UserData = {
-  id?: number;
+  id?: string;
   email: string;
   first_name: string;
   last_name: string;
   profile: ProfileData;
+  photoUrl?: string;
 };
 
 export type DepartmentData = {
