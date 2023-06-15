@@ -15,6 +15,7 @@ import { Auth } from "@/services/auth";
 import { useFormik } from "formik";
 import { decryptId, encryptId } from "@/encryption";
 import StandardModal from "@/components/Modal/StandardModal";
+import LoadingModalSpinner from "@/components/Loading/LoadingModalSpinner";
 
 // import GoogleButton from "@/components/Button/GoogleButton";
 
@@ -28,11 +29,12 @@ function Home() {
     msg: "",
     title: "",
     icon: "",
+    btnAction: null,
   });
   const [forgotPass, setForgotPass] = useState(false);
   const [saveData, setSaveData] = useState(false);
   const [loginMode, setLoginMode] = useState(true);
-  const [isloading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const handleIsLoading = () => {
     setIsLoading(false);
   };
@@ -113,6 +115,9 @@ function Home() {
   // };
   const handleForgotPass = (e: any) => {
     e.preventDefault();
+    if (!forgotPass) {
+      setLoginMode(true);
+    }
     setForgotPass(!forgotPass);
   };
 
@@ -139,6 +144,7 @@ function Home() {
   const handleFirstRegister = (query: string) => {
     Router.push(`"/register?registeruser=${query}`);
   };
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -153,12 +159,17 @@ function Home() {
       setIsLoading(true);
 
       if (forgotPass) {
+        const btnAction = () => {
+          setForgotPass(false);
+          setLoginMode(true);
+        };
         Auth.resetPassword(
           auth,
           params.email,
           handleIsLoading,
           setShowStandardModal,
-          setStandardModalInfo
+          setStandardModalInfo,
+          btnAction
         );
       } else if (loginMode) {
         handleEmailSignin(
@@ -184,12 +195,22 @@ function Home() {
     const pass = localStorage.getItem("pass");
 
     console.log(email, pass);
-    if (email && pass) {
-      formik.setFieldValue("email", email);
-      formik.setFieldValue("pass", decryptId(pass));
-      setSaveData(true);
+    if (loginMode && !forgotPass) {
+      console.log("ULTRATEST1 LOGIN MODE: ", loginMode);
+      console.log("ULTRATEST1 FORGOT PASS: ", forgotPass);
+      if (email && pass) {
+        formik.setFieldValue("email", email);
+        formik.setFieldValue("pass", decryptId(pass));
+        setSaveData(true);
+      }
+    } else {
+      formik.setFieldValue("email", "");
+      formik.setFieldValue("pass", "");
+      console.log("ULTRATEST2 LOGIN MODE: ", loginMode);
+      console.log("ULTRATEST2 FORGOT PASS: ", forgotPass);
+      setSaveData(false);
     }
-  }, []);
+  }, [loginMode, forgotPass]);
   console.log("FORMIK", formik.values);
 
   useEffect(() => {
@@ -211,9 +232,10 @@ function Home() {
         setShowModal={setShowStandardModal}
         icon={standardModalInfo.icon}
         // msg={setStandardModalMessage}
+        btnAction={standardModalInfo.btnAction}
         msg={standardModalInfo.msg}
       />
-
+      <LoadingModalSpinner showModal={isLoading} />
       <MDBContainer
         className="d-flex flex-column"
         style={{

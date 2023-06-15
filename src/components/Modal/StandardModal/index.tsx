@@ -16,6 +16,7 @@ interface StandardModalProps {
   setShowModal: any;
   btnMessage?: string;
   btnRoute?: string;
+  btnAction?: any;
 }
 
 const StandardModal: React.FC<StandardModalProps> = ({
@@ -26,12 +27,14 @@ const StandardModal: React.FC<StandardModalProps> = ({
   setShowModal,
   btnMessage = "Fechar",
   btnRoute,
+  btnAction,
 }) => {
   // const [showModal, setShowModal] = useState(false);
 
   function toggleModal() {
     setShowModal(!showModal);
     btnRoute && Router.push(btnRoute);
+    btnAction && btnAction();
   }
 
   return (
