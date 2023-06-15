@@ -70,7 +70,7 @@ export const Auth = {
         // ..
       })
       .finally(() => {
-        HandleIsLoading;
+        HandleIsLoading();
       });
   },
 
@@ -120,7 +120,8 @@ export const Auth = {
     email: string,
     HandleIsLoading: any,
     setShowStandardModal: any,
-    setStandardModalInfo: any
+    setStandardModalInfo: any,
+    btnAction: any
   ) {
     sendPasswordResetEmail(auth, email)
       .then(() => {
@@ -130,6 +131,7 @@ export const Auth = {
           title: "Resset de Senha",
           msg: "Siga as instruçoes enviadas ao seu email para resetar sua senha",
           // type: "success",
+          btnAction: btnAction,
         });
         console.log("Password reset email sent!");
       })
