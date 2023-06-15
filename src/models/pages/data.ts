@@ -5,7 +5,7 @@ export type AllData = UserData &
   DepartmentData;
 
 export type UserData = {
-  id?: string;
+  id?: string | number;
   email: string;
   first_name: string;
   last_name: string;
