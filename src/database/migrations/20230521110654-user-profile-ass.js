@@ -22,6 +22,7 @@ module.exports = {
           first_name: "Fabricio",
           last_name: "Chiaradia",
           email: "fabricioxc@gmail.com",
+          uuid: "dGrCEjw1H3XA2ZVeRiaJaq790gD2",
         },
       ],
       {}

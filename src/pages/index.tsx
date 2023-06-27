@@ -211,7 +211,7 @@ function Home() {
       setSaveData(false);
     }
   }, [loginMode, forgotPass]);
-  console.log("FORMIK", formik.values);
+  // console.log("FORMIK", formik.values);
 
   useEffect(() => {
     if (forgotPass) {

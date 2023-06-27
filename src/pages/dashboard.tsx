@@ -2,17 +2,19 @@ import DashboardComponent from "@/components/Dashboard";
 import StandardLayout from "@/components/Layout/StandardLayout";
 import NavbarComponent from "@/components/Navbar/Navbar";
 import { Users } from "@/models/database/database";
-import axios from "axios";
+import { getApiClient } from "@/services/axios";
+// import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  const axios = getApiClient();
   const [users, setUsers] = useState<Users[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   console.log("Users: ", users);
   useEffect(() => {
     axios
-      .get("/api/users")
+      .get("/users")
       .then(({ data }) => {
         setUsers(data.users);
       })

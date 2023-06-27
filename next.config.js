@@ -13,6 +13,8 @@ const nextConfig = {
     FIREBASE_APP_ID: `${process.env.NEXT_PUBLIC_FIREBASE_APP_ID}`,
     FIREBASE_MEASUREMENT_ID: `${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}`,
     APP_ENCRYPT_KEY: `${process.env.NEXT_PUBLIC_APP_ENCRYPT_KEY}`,
+    FIREBASE_ADMIN_PRIVATE_KEY: `${process.env.NEXT_PUBLIC_FIREBASE_ADMIN_PRIVATE_KEY}`,
+    FIREBASE_ADMIN_KEY_ID: `${process.env.NEXT_PUBLIC_FIREBASE_ADMIN_KEY_ID}`,
   },
   images: {
     remotePatterns: [

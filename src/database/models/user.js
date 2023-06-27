@@ -27,7 +27,7 @@ const initUser = (sequelize, Types) => {
       last_name: Types.STRING,
       email: Types.STRING,
       ProfileId: Types.INTEGER,
-
+      uuid: Types.STRING,
       // profile: Types.INTEGER,
       // department: Types.INTEGER,
     },

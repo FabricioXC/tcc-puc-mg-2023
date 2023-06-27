@@ -16,15 +16,19 @@ export default function App({ Component, pageProps }: AppProps) {
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
-  console.log("User: ", user);
+  // console.log("User: ", user);
   // console.log("Userrrrrrrrrrrrr: ", user?.displayName);
   // console.log("Router: ", router.pathname);
   useEffect(() => {
     if (router.pathname !== "/" && !user && !loading) {
       router.push("/");
     }
+    // console.log("Passou aqui");
+    // console.log("User: ", user);
+    // console.log("Loading: ", loading);
+    // console.log("Router: ", router.pathname);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.pathname, user]);
+  }, [router.pathname, user, loading]);
 
   return (
     <>

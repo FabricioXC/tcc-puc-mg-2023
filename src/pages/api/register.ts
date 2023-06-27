@@ -2,44 +2,14 @@ import { Profile } from "@/database/models";
 import User from "../../database/models/user";
 import { apiGetData, apiSendData } from "@/helper/api";
 import { makeInfoGender } from "@/components/Forms/functions";
-import { refreshToken } from "firebase-admin/app";
-import { verifyIdToken } from "@/firebase/firebaseAdmin";
-// import { headers } from "next/headers";
+import { headers } from "next/headers";
 export default async function handler(req: any, res: any) {
   const info = makeInfoGender("users");
 
-  // const app = initializeApp();
-  // console.log("APP: ", app);
-  // getAuth()
-  // .verifyIdToken(idToken)
-  // .then((decodedToken) => {
-  //   const uid = decodedToken.uid;
-  //   // ...
-  // })
-  // .catch((error) => {
-  //   // Handle error
-  // });
-  const response = await verifyIdToken(req.headers.authorization)
-    .then((res) => {
-      console.log("RES: ", res);
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
-  console.log("RESPONSE: ", response);
   switch (req.method) {
     case "GET":
-      // console.log("REQUIREMENT:", req.headers.authorization);
-      // try {
-      //   const headersInstance = headers();
-      //   const authorization = headersInstance.get("authorization");
-      //   console.log("Authorization: ", authorization);
-      // } catch (error) {
-      //   console.log("ERROR: ", error);
-      // }
-      // console.log("Token User:", req.headers);
-      // console.log("GET REQ:", req);
+      console.log("Token:", req.headers);
+
       // const headersList = headers();
 
       // console.log("Headrs List:", headersList);

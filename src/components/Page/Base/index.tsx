@@ -25,6 +25,7 @@ const BasePage: React.FC<BasePageProps> = ({ dataType, hasExternalData }) => {
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const axios = getApiClient();
   useEffect(() => {
+    console.log("AXIOS: ", axios.defaults.headers.Authorization);
     if (reloadData) {
       setIsLoadingTable(true);
       axios

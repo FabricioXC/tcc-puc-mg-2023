@@ -10,6 +10,8 @@ export default function Users() {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
+  // ctx.req.headers["Authorization"] = "Teste de autorization";
+  // console.log("ctx: ", ctx.req.headers["Authorization"]);
   return {
     props: { data: [] },
   };

@@ -1,3 +1,4 @@
+import { saveToken } from "@/pages/helper/functions/token";
 import {
   signInWithPopup,
   Auth as AuthF,
@@ -14,7 +15,8 @@ export const Auth = {
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
+        // const token = credential?.accessToken;
+        saveToken(auth);
         // The signed-in user info.
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
@@ -50,7 +52,8 @@ export const Auth = {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log("User SugnUP: ", user);
+        saveToken(auth);
+        console.log("User SignUP: ", user);
         console.log("User Credential: ", userCredential);
         console.log("User Email: ", user?.email);
       })
@@ -87,7 +90,7 @@ export const Auth = {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-
+        saveToken(auth);
         // console.log("User SugnIn: ", user);
         // console.log("User Credential: ", userCredential);
         // console.log("User Email: ", user?.email);
