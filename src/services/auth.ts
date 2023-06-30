@@ -1,4 +1,4 @@
-import { saveToken } from "@/pages/helper/functions/token";
+import { saveToken } from "@/helper/functions/token";
 import {
   signInWithPopup,
   Auth as AuthF,
