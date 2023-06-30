@@ -5,11 +5,16 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useEffect, useState } from "react";
 import { DashboardIndicator, DashboardMainContainer } from "./styles";
+import LoadingModalSpinner from "../Loading/LoadingModalSpinner";
 interface DashboardComponentProps {
   users: Users[];
+  isLoading: boolean;
 }
 
-const DashboardComponent: React.FC<DashboardComponentProps> = ({ users }) => {
+const DashboardComponent: React.FC<DashboardComponentProps> = ({
+  users,
+  isLoading,
+}) => {
   //   const [users, setUsers] = useState<Users[]>([]);
   //   const [errorMessage, setErrorMessage] = useState("");
   //   console.log("Users: ", users);
@@ -46,6 +51,7 @@ const DashboardComponent: React.FC<DashboardComponentProps> = ({ users }) => {
   return (
     <>
       {/* <NavbarComponent /> */}
+      <LoadingModalSpinner showModal={isLoading} />
       <DashboardMainContainer>
         <DashboardIndicator>
           <div className="text-lg">Usuários cadastrados:</div>

@@ -10,9 +10,11 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
   const axios = getApiClient();
   const [users, setUsers] = useState<Users[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   console.log("Users: ", users);
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get("/users")
       .then(({ data }) => {
@@ -27,13 +29,16 @@ export default function Dashboard() {
         }
         setErrorMessage(message);
         console.log("Users Error: ", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
   return (
     <>
       <StandardLayout>
-        <DashboardComponent users={users} />
+        <DashboardComponent users={users} isLoading={isLoading} />
       </StandardLayout>
     </>
   );

@@ -8,17 +8,6 @@ import { verifyIdToken } from "@/firebase/firebaseAdmin";
 export default async function handler(req: any, res: any) {
   const info = makeInfoGender("users");
 
-  // const app = initializeApp();
-  // console.log("APP: ", app);
-  // getAuth()
-  // .verifyIdToken(idToken)
-  // .then((decodedToken) => {
-  //   const uid = decodedToken.uid;
-  //   // ...
-  // })
-  // .catch((error) => {
-  //   // Handle error
-  // });
   const response = await verifyIdToken(req.headers.authorization)
     .then((res) => {
       console.log("RES: ", res);
@@ -30,19 +19,6 @@ export default async function handler(req: any, res: any) {
   console.log("RESPONSE: ", response);
   switch (req.method) {
     case "GET":
-      // console.log("REQUIREMENT:", req.headers.authorization);
-      // try {
-      //   const headersInstance = headers();
-      //   const authorization = headersInstance.get("authorization");
-      //   console.log("Authorization: ", authorization);
-      // } catch (error) {
-      //   console.log("ERROR: ", error);
-      // }
-      // console.log("Token User:", req.headers);
-      // console.log("GET REQ:", req);
-      // const headersList = headers();
-
-      // console.log("Headrs List:", headersList);
       if (req.query.register) {
         try {
           // console.log("QUERY: ", req.query);
